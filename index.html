@@ -3,6 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============ Medición: Google Tag Manager ============
+     1) Pega abajo el ID de tu contenedor (formato GTM-XXXXXXX). Mientras gtmId esté vacío NO se carga GTM,
+        pero los eventos igual se guardan en window.dataLayer (se pueden revisar en la consola).
+     2) variant identifica esta versión en los eventos: 'B'. La versión A debe enviar 'A' para poder comparar. -->
+<script>
+  window.ARQ_AB = { gtmId: '', variant: 'B' };
+  window.dataLayer = window.dataLayer || [];
+  (function (w, d, s, l, i) {
+    if (!/^GTM-[A-Z0-9]+$/.test(i)) return;
+    w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var f = d.getElementsByTagName(s)[0], j = d.createElement(s);
+    j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', window.ARQ_AB.gtmId);
+</script>
 <title>ARQ business | Variación B (estructura Nu)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,6 +27,9 @@
 <link rel="stylesheet" href="personal.css">
 </head>
 <body>
+<!-- Si usas GTM, descomenta este bloque y reemplaza GTM-XXXXXXX por tu ID (respaldo para navegadores sin JavaScript):
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+-->
 
 <!--
   VARIACIÓN B — ARQ (EMPRESAS + PERSONAL EN UNA SOLA PÁGINA)
@@ -29,7 +48,7 @@
   <button type="button" class="banner-btn" id="brand-open" data-cta="brand-banner" aria-haspopup="dialog" aria-controls="brand-modal">
     <span class="ticker" aria-live="off">
       <span class="ticker-inner">
-        <span><span class="was">DolarApp</span> <span class="is">ahora es</span> <img class="banner-logo" src="https://www.arqfinance.com/_astro/logo.D534Oqrz_ZRshG1.svg" alt="ARQ"></span>
+        <span><span class="was">DolarApp</span> <span class="is">ahora es</span> <img class="banner-logo" src="assets/logo.D534Oqrz_ZRshG1.svg" alt="ARQ"></span>
         <span>Tan global como siempre, más ambiciosa que nunca</span>
         <span aria-hidden="true"><span class="was static">DolarApp</span></span>
       </span>
@@ -41,7 +60,7 @@
 <header class="nav" id="nav">
   <div class="wrap">
     <div class="nav-left">
-      <a class="logo" href="#" data-top aria-label="ARQ (volver al inicio)"><img src="https://www.arqfinance.com/_astro/logo.D534Oqrz_ZRshG1.svg" alt="ARQ"></a>
+      <a class="logo" href="#" data-top aria-label="ARQ (volver al inicio)"><img src="assets/logo.D534Oqrz_ZRshG1.svg" alt="ARQ"></a>
       <div class="switch" role="navigation" aria-label="Tipo de cuenta">
         <a href="#empresas" data-view="empresas" class="active" aria-current="page">Empresas</a>
         <a href="#personal" data-view="personal">Personal</a>
@@ -115,14 +134,14 @@
       <p class="cap">Elegido por los equipos que construyen negocios globales desde América Latina.</p>
       <div class="marquee" aria-label="Empresas que usan ARQ">
         <div class="marquee-track">
-          <img src="https://www.arqfinance.com/_astro/partner-1.D_mMeR3E.webp" alt="">
-          <img src="https://www.arqfinance.com/_astro/partner-11.BXKxPLMq.webp" alt="">
-          <img src="https://www.arqfinance.com/_astro/partner-3.COo-REMi.webp" alt="">
-          <img src="https://www.arqfinance.com/_astro/partner-4.nr9aVYWp.webp" alt="">
-          <img src="https://www.arqfinance.com/_astro/partner-6.D3TfgtO8.webp" alt="">
-          <img src="https://www.arqfinance.com/_astro/partner-7.Bqnf9oLd.webp" alt="">
-          <img src="https://www.arqfinance.com/_astro/partner-8.Dorq1Qq0.webp" alt="">
-          <img src="https://www.arqfinance.com/_astro/partner-9.DxtAh7CF.webp" alt="">
+          <img src="assets/partner-1.D_mMeR3E.webp" alt="">
+          <img src="assets/partner-11.BXKxPLMq.webp" alt="">
+          <img src="assets/partner-3.COo-REMi.webp" alt="">
+          <img src="assets/partner-4.nr9aVYWp.webp" alt="">
+          <img src="assets/partner-6.D3TfgtO8.webp" alt="">
+          <img src="assets/partner-7.Bqnf9oLd.webp" alt="">
+          <img src="assets/partner-8.Dorq1Qq0.webp" alt="">
+          <img src="assets/partner-9.DxtAh7CF.webp" alt="">
         </div>
       </div>
     </div>
@@ -141,7 +160,7 @@
         <ul><li>Pagos en lote</li><li>Proveedores y contratistas en todo el mundo</li><li>Todo desde una sola cuenta</li></ul>
         <a class="btn btn-burgundy" href="#e-registro" data-cta="prod-pagos">Comienza a pagar globalmente <span class="arr">→</span></a>
       </div>
-      <div class="media reveal" style="--d:.1s"><img src="https://www.arqfinance.com/_astro/business-benefit-1-es.Cd3D0XZC_2eNwPp.webp" alt="Pagos internacionales en ARQ business" loading="lazy"></div>
+      <div class="media reveal" style="--d:.1s"><img src="assets/business-benefit-1-es.Cd3D0XZC_2eNwPp.webp" alt="Pagos internacionales en ARQ business" loading="lazy"></div>
     </div>
 
     <div class="product rev">
@@ -152,7 +171,7 @@
         <ul><li>Recibe pagos sin fricciones</li><li>Protege tu tesorería en dólares y euros digitales</li><li>Opera como empresa local</li></ul>
         <a class="btn btn-burgundy" href="#e-registro" data-cta="prod-cuentas">Abre tu cuenta global <span class="arr">→</span></a>
       </div>
-      <div class="media reveal" style="--d:.1s"><img src="https://www.arqfinance.com/_astro/business-benefit-2-es.DtLXEOiA_ZNxjGQ.webp" alt="Cuentas multimoneda USD y EUR" loading="lazy"></div>
+      <div class="media reveal" style="--d:.1s"><img src="assets/business-benefit-2-es.DtLXEOiA_ZNxjGQ.webp" alt="Cuentas multimoneda USD y EUR" loading="lazy"></div>
     </div>
 
     <div class="product">
@@ -163,7 +182,7 @@
         <ul><li>Límites de gasto por persona o equipo</li><li>Aceptación global</li><li>Controles en tiempo real</li></ul>
         <a class="btn btn-burgundy" href="#e-registro" data-cta="prod-tarjetas">Obtener tarjetas globales <span class="arr">→</span></a>
       </div>
-      <div class="media reveal" style="--d:.1s"><img src="https://www.arqfinance.com/_astro/business-benefit-3-en.Bo8iLZwk_8RFcz.webp" alt="Tarjetas corporativas ARQ" loading="lazy"></div>
+      <div class="media reveal" style="--d:.1s"><img src="assets/business-benefit-3-en.Bo8iLZwk_8RFcz.webp" alt="Tarjetas corporativas ARQ" loading="lazy"></div>
     </div>
 
     <div class="product rev">
@@ -177,7 +196,7 @@
         </div>
         <p class="fine">Valores de referencia. Conectar al widget de tasas en vivo.</p>
       </div>
-      <div class="media reveal" style="--d:.1s"><img src="https://www.arqfinance.com/_astro/business-app-es.hrPkyyJW_Z2uiToX.webp" alt="Plataforma ARQ business" loading="lazy"></div>
+      <div class="media reveal" style="--d:.1s"><img src="assets/business-app-es.hrPkyyJW_Z2uiToX.webp" alt="Plataforma ARQ business" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -202,19 +221,19 @@
     <div class="quotes">
       <figure class="quote hl reveal">
         <p>“Implementar ARQ business redujo los gastos totales de la empresa en un 2% gracias a sus tasas de cambio competitivas.”</p>
-        <cite><img src="https://www.arqfinance.com/_astro/slide-5.DPJ-iJAH_Z2r4fEP.webp" alt=""><span><b>Quinto Van Peborgh</b>Co-Founder & CEO @ Rintin</span></cite>
+        <cite><img src="assets/slide-5.DPJ-iJAH_Z2r4fEP.webp" alt=""><span><b>Quinto Van Peborgh</b>Co-Founder & CEO @ Rintin</span></cite>
       </figure>
       <figure class="quote reveal" style="--d:.08s">
         <p>“El equipo de ARQ siempre está disponible y nos ayudan a ahorrar decenas de miles de dólares cada semana. Verdaderamente la mejor tasa de cambio del mercado.”</p>
-        <cite><img src="https://www.arqfinance.com/_astro/slide-2.Dfyh3610_Z2ljd4l.webp" alt=""><span><b>Eduardo Guzman</b>CFO @ 99minutos</span></cite>
+        <cite><img src="assets/slide-2.Dfyh3610_Z2ljd4l.webp" alt=""><span><b>Eduardo Guzman</b>CFO @ 99minutos</span></cite>
       </figure>
       <figure class="quote reveal">
         <p>“Nuestro equipo puede pagar a proveedores internacionales en cuestión de minutos usando la plataforma de ARQ. Ahorra dinero y, lo más importante, tiempo.”</p>
-        <cite><img src="https://www.arqfinance.com/_astro/slide-3.DffflrBR_2bcWS3.webp" alt=""><span><b>Tomas Mindlin</b>Co-Founder & CEO @ Tapi</span></cite>
+        <cite><img src="assets/slide-3.DffflrBR_2bcWS3.webp" alt=""><span><b>Tomas Mindlin</b>Co-Founder & CEO @ Tapi</span></cite>
       </figure>
       <figure class="quote reveal" style="--d:.08s">
         <p>“ARQ ha ayudado a que pagar a proveedores internacionales sea un proceso fluido para Kaszek.”</p>
-        <cite><img src="https://www.arqfinance.com/_astro/slide-1.BblsdH49_Z1HPmCz.webp" alt=""><span><b>Hernan Kazah</b>Co-Founder & Managing Partner @ Kaszek</span></cite>
+        <cite><img src="assets/slide-1.BblsdH49_Z1HPmCz.webp" alt=""><span><b>Hernan Kazah</b>Co-Founder & Managing Partner @ Kaszek</span></cite>
       </figure>
     </div>
     <div class="qctrl">
@@ -255,9 +274,9 @@
 <main id="view-personal" class="view" hidden>
 <!-- 1. HERO CON VIDEO -->
 <section class="p-hero">
-  <video id="hero-video" autoplay muted loop playsinline preload="metadata" poster="https://www.arqfinance.com/_astro/hero.NEH5cOVc.webp"
-         data-desktop-src="https://cdn.arqfinance.com/9a062e05-7674-4037-b7e7-937e2901f3b5/hero-video-bg-desktop-boneta.mp4"
-         data-mobile-src="https://cdn.arqfinance.com/9a062e05-7674-4037-b7e7-937e2901f3b5/hero-video-bg-mobile-boneta.mp4"></video>
+  <video id="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero.NEH5cOVc.webp"
+         data-desktop-src="assets/video/hero-video-bg-desktop-boneta.mp4"
+         data-mobile-src="assets/video/hero-video-bg-mobile-boneta.mp4"></video>
   <div class="wrap">
     <div>
       <h1>Hacer crecer tu patrimonio<br>no es suerte, es ARQ.</h1>
@@ -277,7 +296,7 @@
 <!-- 2. CAMBIO: celular + tarjeta sobre verde -->
 <section class="p-green">
   <div class="wrap">
-    <div class="img reveal"><img src="https://www.arqfinance.com/_astro/arq-app-es-co.DZjt2pmW_Z1uCnOr.webp" alt="App y tarjeta ARQ"></div>
+    <div class="img reveal"><img src="assets/arq-app-es-co.DZjt2pmW_Z1uCnOr.webp" alt="App y tarjeta ARQ"></div>
     <div>
       <h2 class="reveal">Tu banco odiaría<br>que vieras nuestro cambio.</h2>
       <p class="sub reveal">Cambia a dólares digitales y euros digitales en segundos, a la tasa real del mercado. Sin comisiones ocultas.</p>
@@ -309,13 +328,13 @@
     <h2 class="reveal">Esto es lo que dicen de nosotros</h2>
     <div class="marquee" aria-label="Medios que hablan de ARQ">
       <div class="marquee-track">
-        <img src="https://www.arqfinance.com/_astro/bloomberg.BDicKIKr.svg" alt="Bloomberg">
-        <img src="https://www.arqfinance.com/_astro/forbes.Dz3vZZSB.svg" alt="Forbes">
-        <img src="https://www.arqfinance.com/_astro/el-tiempo.CmvBShZ-.svg" alt="El Tiempo">
-        <img src="https://www.arqfinance.com/_astro/valora-atlantic.BvX9Cz4F.svg" alt="Valora Analitik">
-        <img src="https://www.arqfinance.com/_astro/la-republica.Vt3ulvCZ.svg" alt="La República">
-        <img src="https://www.arqfinance.com/_astro/infobae.BCz3heBQ.svg" alt="Infobae">
-        <img src="https://www.arqfinance.com/_astro/bloomberg-en-linea.BaGs9W0c.svg" alt="Bloomberg Línea">
+        <img src="assets/bloomberg.BDicKIKr.svg" alt="Bloomberg">
+        <img src="assets/forbes.Dz3vZZSB.svg" alt="Forbes">
+        <img src="assets/el-tiempo.CmvBShZ-.svg" alt="El Tiempo">
+        <img src="assets/valora-atlantic.BvX9Cz4F.svg" alt="Valora Analitik">
+        <img src="assets/la-republica.Vt3ulvCZ.svg" alt="La República">
+        <img src="assets/infobae.BCz3heBQ.svg" alt="Infobae">
+        <img src="assets/bloomberg-en-linea.BaGs9W0c.svg" alt="Bloomberg Línea">
       </div>
     </div>
   </div>
@@ -337,7 +356,7 @@
         </div>
         <div><a class="btn btn-black" href="#p-registro" data-cta="prod-tarjeta">Pide tu tarjeta ARQ <span class="arr">→</span></a></div>
       </div>
-      <div class="im"><img src="https://www.arqfinance.com/_astro/benefit-1-en-all.DXNm6J_1_1EP5q.webp" alt="Tarjeta ARQ" loading="lazy"></div>
+      <div class="im"><img src="assets/benefit-1-en-all.DXNm6J_1_1EP5q.webp" alt="Tarjeta ARQ" loading="lazy"></div>
     </article>
 
     <article class="p-benefit rev reveal">
@@ -348,7 +367,7 @@
         </div>
         <div><a class="btn btn-black" href="#p-registro" data-cta="prod-cuenta">Abre tu cuenta global <span class="arr">→</span></a></div>
       </div>
-      <div class="im"><img src="https://www.arqfinance.com/_astro/benefit-2-es-co.DaxhS8_G_Z1728Cl.webp" alt="Cuenta global ARQ" loading="lazy"></div>
+      <div class="im"><img src="assets/benefit-2-es-co.DaxhS8_G_Z1728Cl.webp" alt="Cuenta global ARQ" loading="lazy"></div>
     </article>
 
     <article class="p-benefit reveal">
@@ -359,7 +378,7 @@
         </div>
         <div><a class="btn btn-black" href="#p-registro" data-cta="prod-inversion">Empieza hoy <span class="arr">→</span></a></div>
       </div>
-      <div class="im"><img src="https://www.arqfinance.com/_astro/benefit-3-es-co.fEWbibNk_aejRg.webp" alt="Inversiones en ARQ" loading="lazy"></div>
+      <div class="im"><img src="assets/benefit-3-es-co.fEWbibNk_aejRg.webp" alt="Inversiones en ARQ" loading="lazy"></div>
     </article>
   </div>
 </section>
@@ -367,17 +386,17 @@
 <!-- 6. CONVERSOR: celular sobre burdeos + calculadora -->
 <section class="p-ex" id="p-cambio">
   <div class="wrap">
-  <div class="l"><img src="https://www.arqfinance.com/_astro/exchange-app-es-co.D25RmYHM_ZnpPjo.webp" alt="Alertas de precio en la app de ARQ" loading="lazy"></div>
+  <div class="l"><img src="assets/exchange-app-es-co.D25RmYHM_ZnpPjo.webp" alt="Alertas de precio en la app de ARQ" loading="lazy"></div>
   <div class="r">
     <h2 class="reveal">No nos creas.<br>Compruébalo por ti mismo.</h2>
     <div class="p-calc reveal" id="calc">
       <div class="row">
-        <span class="cur"><img id="calc-flag-from" src="https://www.arqfinance.com/_astro/co.DbTl_jdJ.svg" alt=""><span id="calc-from">COP</span></span>
+        <span class="cur"><img id="calc-flag-from" src="assets/co.DbTl_jdJ.svg" alt=""><span id="calc-from">COP</span></span>
         <input class="val" id="calc-amt" inputmode="decimal" value="1000000" aria-label="Monto a cambiar">
       </div>
       <div class="mid"><button type="button" class="swapbtn" id="calc-swap" aria-label="Invertir monedas">⇅</button></div>
       <div class="row">
-        <span class="cur"><img id="calc-flag-to" src="https://www.arqfinance.com/_astro/us.BxQaODEj.svg" alt=""><span id="calc-to">USDc</span></span>
+        <span class="cur"><img id="calc-flag-to" src="assets/us.BxQaODEj.svg" alt=""><span id="calc-to">USDc</span></span>
         <div class="val out" id="calc-out">0</div>
       </div>
       <div class="rate"><span id="calc-rate">1 USDc = 3.305,34 COP</span> · Tasa de referencia</div>
@@ -453,13 +472,13 @@
 
 <!-- 10. DESCARGA CON QR -->
 <section class="p-qr" id="p-registro">
-  <div class="l"><div class="qrbox"><img src="https://www.arqfinance.com/_astro/qr-code.CypiRRay.webp" alt="Código QR para descargar la app de ARQ"></div></div>
+  <div class="l"><div class="qrbox"><img src="assets/qr-code.CypiRRay.webp" alt="Código QR para descargar la app de ARQ"></div></div>
   <div class="r">
     <h2 class="reveal">Descarga ARQ.<br>Únete hoy.</h2>
     <p class="reveal">Únete a los 2 millones de personas que ya gestionan su patrimonio con ARQ.</p>
     <div class="badges reveal">
-      <a href="#" data-cta="badge-appstore"><img src="https://www.arqfinance.com/_astro/app-store-badge-es.mpKR2dAW.svg" alt="Descargar en App Store"></a>
-      <a href="#" data-cta="badge-googleplay"><img src="https://www.arqfinance.com/_astro/google-play-badge-es.CU2piSXn.svg" alt="Disponible en Google Play"></a>
+      <a href="#" data-cta="badge-appstore"><img src="assets/app-store-badge-es.mpKR2dAW.svg" alt="Descargar en App Store"></a>
+      <a href="#" data-cta="badge-googleplay"><img src="assets/google-play-badge-es.CU2piSXn.svg" alt="Disponible en Google Play"></a>
     </div>
   </div>
 </section>
@@ -473,7 +492,7 @@
     <p>Los servicios de activos virtuales son ofrecidos y promocionados en Colombia por DolarApp México S.A. de C.V. Los activos virtuales no son moneda de curso legal en Colombia e implican riesgos. Todos los pagos entrantes se convertirán automáticamente a USDc o EURc (activos virtuales). Todos los pagos salientes corresponden al producto de la venta de USDc o EURc (activos virtuales). Recibiremos PQRs sobre los servicios prestados en help@arqfinance.com.</p>
     <p>Los servicios relacionados con la tarjeta de crédito son proporcionados en Colombia por DAPP Colombia S.A.S., NIT 901644165-9.</p>
     <p>DolarApp Inc. 2026</p>
-    <img class="brand" src="https://www.arqfinance.com/_astro/logo.D534Oqrz_ZRshG1.svg" alt="ARQ">
+    <img class="brand" src="assets/logo.D534Oqrz_ZRshG1.svg" alt="ARQ">
   </div>
 </footer>
 
@@ -484,7 +503,7 @@
     <div class="bm-hero" aria-hidden="true">
       <span class="bm-from">DolarApp</span>
       <span class="bm-arrow">→</span>
-      <span class="bm-to"><img src="https://www.arqfinance.com/_astro/logo.D534Oqrz_ZRshG1.svg" alt=""></span>
+      <span class="bm-to"><img src="assets/logo.D534Oqrz_ZRshG1.svg" alt=""></span>
     </div>
     <div class="bm-body">
       <h2 id="bm-title">DolarApp ahora es ARQ</h2>

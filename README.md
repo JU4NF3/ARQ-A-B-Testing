@@ -16,16 +16,18 @@ y la tasa de registro frente a la versión A (la web actual).
 
 ## Estructura del proyecto
 
-| Archivo | Qué contiene |
+| Archivo / carpeta | Qué contiene |
 |---|---|
-| `index.html` | La página completa (vistas Empresas y Personal, banner y modal del cambio de marca) |
+| `index.html` | La página completa (vistas Empresas y Personal, banner y modal del cambio de marca) y la configuración de GTM |
 | `styles.css` | Estilos base y vista Empresas (tokens de marca de ARQ, botones, secciones, carruseles, FAQ) |
 | `personal.css` | Estilos de la vista Personal, el banner animado y el modal "De DolarApp a ARQ" |
-| `script.js` | Interacciones: cambio de vista, logo, carruseles, conversor, video del hero, modal y medición |
-| `arq-variacion-B-completo.html` | La misma página en un solo archivo (CSS y JS incluidos), útil para compartir |
+| `script.js` | Interacciones: cambio de vista, logo, carruseles, conversor, video del hero, modal y eventos de medición |
+| `assets/` | Imágenes, logos y badges alojados localmente (38 archivos) |
+| `assets/video/` | Videos del hero de la vista Personal (escritorio y móvil) |
+| `arq-variacion-B-completo.html` | La misma página con CSS y JS incluidos en un solo archivo (necesita la carpeta `assets/` al lado) |
 
-Para verla, abre `index.html` en el navegador (los cuatro archivos deben estar en la misma carpeta) o abre
-directamente `arq-variacion-B-completo.html`.
+Para verla, abre `index.html` en el navegador con todos los archivos y la carpeta `assets/` en el mismo lugar,
+o sírvela desde cualquier hosting estático (GitHub Pages, Netlify, Vercel…): no necesita servidor ni build.
 
 ## Qué incluye
 
@@ -37,10 +39,36 @@ directamente `arq-variacion-B-completo.html`.
   tiempo del cambio de marca.
 - Animaciones básicas (aparición al hacer scroll, hover de botones y tarjetas); respeta `prefers-reduced-motion`.
 - Navbar: el logo sube al inicio; Funcionalidades, Clientes/Opiniones, Ayuda y el botón del navbar no navegan.
-- Cada CTA del cuerpo lleva `data-cta` y envía un evento `cta_click` (variante `B`) a `window.dataLayer`.
 
+## Medición con Google Tag Manager
+
+La página escribe sus eventos en `window.dataLayer`, que es lo que lee GTM.
+
+**Configuración** (en `index.html`, bloque de `<head>`):
+
+```js
+window.ARQ_AB = { gtmId: '', variant: 'B' };
+```
+
+- `gtmId`: pega el ID de tu contenedor (`GTM-XXXXXXX`). **Mientras esté vacío no se carga GTM**, pero los eventos
+  igual se registran en `window.dataLayer` (puedes verlos escribiendo `dataLayer` en la consola del navegador).
+- `variant`: identifica esta versión en los eventos. La versión A debe enviar `'A'` para poder comparar.
+- Opcional: descomenta el bloque `<noscript>` al inicio del `<body>` y pon tu ID (respaldo sin JavaScript).
+
+**Eventos que envía** (todos incluyen `variant` y `view`: `empresas` o `personal`):
+
+| Evento | Cuándo | Parámetros extra |
+|---|---|---|
+| `cta_click` | Clic en cualquier botón del cuerpo con `data-cta` (hero, productos, conversor, modal…) | `cta` (nombre), `cta_text` |
+| `view_change` | Al cargar y al cambiar entre Empresas y Personal | `view`, `from_user` |
+| `scroll_depth` | Una vez por vista al llegar al 50 % y al 75 % | `percent` |
+| `calculator_use` | La primera vez que se usa el conversor | `action` (`input` o `swap`) |
+
+**En GTM:** crea un disparador de tipo *Evento personalizado* para cada nombre de evento, variables de capa de datos
+para `variant`, `view`, `cta` y `percent`, y envíalos a GA4. Un clic en un botón no es una conversión: la conversión
+real (registro completado) debe medirse en el flujo de alta de ARQ.
 
 ## Aviso
 
-Marca, logos, imágenes y textos de ARQ y de DolarApp pertenecen a sus titulares. Este repositorio es un prototipo
-de experimentación A/B y no está afiliado oficialmente a ARQ ni a Nu.
+Marca, logos, imágenes, videos y textos de ARQ y de DolarApp pertenecen a sus titulares. Este repositorio es un
+prototipo de experimentación A/B y no está afiliado oficialmente a ARQ ni a Nu.

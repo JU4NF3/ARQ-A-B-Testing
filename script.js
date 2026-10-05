@@ -1,6 +1,15 @@
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const reduceMotion=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
+// ---------- Medición: todo evento va a window.dataLayer (lo lee Google Tag Manager) ----------
+// El ID de GTM y la variante se configuran en index.html (window.ARQ_AB).
+const AB=window.ARQ_AB||{variant:'B'};
+const viewName=()=>{const p=document.getElementById('view-personal');return p&&!p.hidden?'personal':'empresas'};
+const track=(event,params={})=>{
+  window.dataLayer=window.dataLayer||[];
+  window.dataLayer.push(Object.assign({event,variant:AB.variant,view:viewName()},params));
+};
+
 // ---------- Header fijo con fondo al hacer scroll ----------
 const nav=$('#nav');
 const onScroll=()=>nav.classList.toggle('stuck',window.scrollY>140);
@@ -53,7 +62,7 @@ if(calc){
   const RATE={buy:3305.34,sell:3277.05}; // COP por 1 USDc (valores de referencia de la web de ARQ)
   const amt=$('#calc-amt'),out=$('#calc-out'),fromL=$('#calc-from'),toL=$('#calc-to'),rateL=$('#calc-rate'),swap=$('#calc-swap');
   const flagFrom=$('#calc-flag-from'),flagTo=$('#calc-flag-to');
-  const FLAG_CO='https://www.arqfinance.com/_astro/co.DbTl_jdJ.svg',FLAG_US='https://www.arqfinance.com/_astro/us.BxQaODEj.svg';
+  const FLAG_CO='assets/co.DbTl_jdJ.svg',FLAG_US='assets/us.BxQaODEj.svg';
   let copToUsd=true;
   const fmt=(n,d)=>n.toLocaleString('es-CO',{minimumFractionDigits:d,maximumFractionDigits:d});
   const render=()=>{
@@ -68,10 +77,35 @@ if(calc){
   render();
 }
 
-// ---------- Medición de CTAs (conectar a tu analítica) ----------
+// ---------- Eventos de medición ----------
+// cta_click: cada botón del cuerpo que lleva data-cta (hero, productos, conversor, modal, etc.)
 $$('[data-cta]').forEach(a=>a.addEventListener('click',()=>{
-  window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'cta_click',cta:a.dataset.cta,variant:'B'});
+  track('cta_click',{cta:a.dataset.cta,cta_text:a.textContent.trim().replace(/\s+/g,' ').slice(0,60)});
 }));
+
+// scroll_depth: una vez por vista al llegar al 50 % y al 75 % de la página
+const scrollSeen=new Set();
+let scrollTick=false;
+addEventListener('scroll',()=>{
+  if(scrollTick)return;scrollTick=true;
+  requestAnimationFrame(()=>{
+    scrollTick=false;
+    const pct=(scrollY+innerHeight)/document.documentElement.scrollHeight*100;
+    [50,75].forEach(n=>{
+      const key=viewName()+'-'+n;
+      if(pct>=n&&!scrollSeen.has(key)){scrollSeen.add(key);track('scroll_depth',{percent:n})}
+    });
+  });
+},{passive:true});
+
+// calculator_use: la primera vez que alguien usa el conversor (vista personal)
+let calcTracked=false;
+const trackCalc=action=>{if(!calcTracked){calcTracked=true;track('calculator_use',{action})}};
+const calcEl=document.getElementById('calc');
+if(calcEl){
+  calcEl.addEventListener('input',()=>trackCalc('input'));
+  calcEl.addEventListener('click',e=>{if(e.target.closest('#calc-swap'))trackCalc('swap')});
+}
 
 // ---------- Modal "De DolarApp a ARQ" (se abre solo al hacer clic en el banner) ----------
 const bm=$('#brand-modal'),bmOpen=$('#brand-open');
@@ -126,6 +160,7 @@ if(views.empresas&&views.personal){
     heroVideo(name==='personal');
     if(fromUser)scrollTo(0,0);
     try{history.replaceState(null,'',name==='personal'?'#personal':'#empresas')}catch(_){}
+    track('view_change',{view:name,from_user:!!fromUser});
     dispatchEvent(new Event('resize')); // reajusta los carruseles de la vista que acaba de mostrarse
   };
   $$('#nav [data-view]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();show(a.dataset.view,true)}));

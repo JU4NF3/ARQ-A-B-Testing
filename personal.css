@@ -91,7 +91,7 @@ body.modal-open{overflow:hidden}
 
 /* ---------- Hero con video a pantalla completa ---------- */
 .p-hero{position:relative;min-height:calc(100vh - 36px);max-height:880px;display:flex;align-items:flex-end;color:var(--off-white);overflow:hidden;
-        background:#0b0b0b url("https://www.arqfinance.com/_astro/hero.NEH5cOVc.webp") center/cover no-repeat}
+        background:#0b0b0b url("assets/hero.NEH5cOVc.webp") center/cover no-repeat}
 .p-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.8)}
 .p-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,.65) 100%)}
 .p-hero .wrap{position:relative;z-index:1;width:100%;padding-bottom:64px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
@@ -206,7 +206,7 @@ body.modal-open{overflow:hidden}
 
 /* ---------- Descarga con QR ---------- */
 .p-qr{display:grid;grid-template-columns:1fr 1fr;min-height:420px}
-.p-qr .l{display:flex;align-items:center;justify-content:center;padding:56px 24px;background:#6b6159 url("https://www.arqfinance.com/_astro/qr-bg.CNiHP9vU.webp") center/cover no-repeat}
+.p-qr .l{display:flex;align-items:center;justify-content:center;padding:56px 24px;background:#6b6159 url("assets/qr-bg.CNiHP9vU.webp") center/cover no-repeat}
 .p-qr .qrbox{background:var(--white);padding:14px;width:200px;transition:transform .3s var(--ease)}
 .p-qr .qrbox:hover{transform:scale(1.05) rotate(-2deg)}
 .p-qr .qrbox img{width:100%;height:auto}
