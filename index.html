@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARQ business | Variación B (estructura Nu)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="personal.css">
+</head>
+<body>
+
+<!--
+  VARIACIÓN B — ARQ (EMPRESAS + PERSONAL EN UNA SOLA PÁGINA)
+  El selector Empresas / Personal del navbar cambia de vista sin recargar ni navegar a otro archivo.
+  Hipótesis: si presentamos ARQ con la claridad de Nu (beneficio de control en el hero → "Al elegir ARQ, eliges"
+  → prueba social → productos → confianza/regulación → testimonios → FAQ), aumentará el CTR del CTA principal
+  y la tasa de registro frente a la versión A.
+  Métricas: clic en CTA hero, clics totales a registro, uso del conversor (personal), scroll 50/75%, registro completado.
+  Cada CTA del cuerpo lleva data-cta para instrumentar el evento (los enlaces del navbar no navegan).
+  Elementos en amarillo = placeholders: reemplazar con datos reales. Tasas del conversor = referencia.
+  Imágenes, video, logos y QR se cargan desde arqfinance.com / cdn.arqfinance.com; en producción alojarlos propios.
+-->
+
+<!-- Banner animado: el nombre cambia de DolarApp a ARQ; al hacer clic abre el modal del cambio de marca -->
+<div class="banner">
+  <button type="button" class="banner-btn" id="brand-open" data-cta="brand-banner" aria-haspopup="dialog" aria-controls="brand-modal">
+    <span class="ticker" aria-live="off">
+      <span class="ticker-inner">
+        <span><span class="was">DolarApp</span> <span class="is">ahora es</span> <img class="banner-logo" src="https://www.arqfinance.com/_astro/logo.D534Oqrz_ZRshG1.svg" alt="ARQ"></span>
+        <span>Tan global como siempre, más ambiciosa que nunca</span>
+        <span aria-hidden="true"><span class="was static">DolarApp</span></span>
+      </span>
+    </span>
+    <span class="banner-more">Conoce el cambio <span class="arr">→</span></span>
+  </button>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <div class="nav-left">
+      <a class="logo" href="#" data-top aria-label="ARQ (volver al inicio)"><img src="https://www.arqfinance.com/_astro/logo.D534Oqrz_ZRshG1.svg" alt="ARQ"></a>
+      <div class="switch" role="navigation" aria-label="Tipo de cuenta">
+        <a href="#empresas" data-view="empresas" class="active" aria-current="page">Empresas</a>
+        <a href="#personal" data-view="personal">Personal</a>
+      </div>
+    </div>
+    <div class="links">
+      <a class="noop" href="#">Funcionalidades</a>
+      <a class="noop" href="#" data-t-empresas="Clientes" data-t-personal="Opiniones">Clientes</a>
+      <a class="noop" href="#">Ayuda</a>
+      <a class="btn btn-white noop" href="#" data-t-empresas="Abre tu cuenta" data-t-personal="Registrarse">Abre tu cuenta</a>
+    </div>
+  </div>
+</header>
+
+<main id="view-empresas" class="view">
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="hero-panel">
+    <div class="wrap">
+      <div class="bar">
+        <div class="bar-text">
+          <h1>Hacer crecer tu empresa<br>no es suerte, es ARQ.</h1>
+          <div class="bar-side">
+            <p>Mueve y gasta fondos en las monedas más fuertes del mundo desde una sola cuenta empresarial, con tasas transparentes y sin costos ocultos.</p>
+          </div>
+          <div class="actions">
+            <a class="btn btn-offwhite" href="#e-registro" data-cta="hero">Abre tu cuenta <span class="arr">→</span></a>
+            <a class="btn btn-outline on-dark" href="#e-productos" data-cta="hero-secundario">Conocer más</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. PILARES -->
+<section class="block light">
+  <div class="wrap">
+    <h2 class="reveal center" style="text-align:left">Al elegir ARQ, eliges</h2>
+    <div class="pillars">
+      <div class="pillar reveal" style="--d:.05s"><span class="n">01</span><h3>Tasas transparentes</h3><p>Conversión de grado institucional, sin costos ocultos. Sabes lo que pagas antes de operar.</p></div>
+      <div class="pillar reveal" style="--d:.12s"><span class="n">02</span><h3>Tiempo para tu negocio</h3><p>Paga a proveedores internacionales en minutos, en lote y en solo unos clics.</p></div>
+      <div class="pillar reveal" style="--d:.19s"><span class="n">03</span><h3>Alcance global, sin entidades en el exterior</h3><p>Datos de cuenta en EE. UU. y Europa para enviar y recibir como una empresa local.</p></div>
+      <div class="pillar reveal" style="--d:.26s"><span class="n">04</span><h3>Un equipo siempre disponible</h3><p>Atención cercana que acompaña a tu equipo de finanzas cuando lo necesita.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. TÍTULO DE SERVICIOS (separador entre pilares y prueba social) -->
+<section class="block light" id="e-productos" style="padding-top:24px">
+  <div class="wrap">
+    <div class="center reveal">
+      <h2>Todo lo que tu empresa necesita<br>para operar globalmente</h2>
+      <p class="sub">Una cuenta. Una plataforma. Alcance global.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. PRUEBA SOCIAL -->
+<section class="block dark">
+  <div class="wrap">
+    <span class="eyebrow reveal">Prueba social</span>
+    <h2 class="reveal" style="max-width:720px">Equipos de toda Latinoamérica ya operan con ARQ</h2>
+    <div class="stats">
+      <div class="stat reveal" style="--d:.05s"><b>2%</b><span>menos gastos totales en Rintin tras implementar ARQ business</span></div>
+      <div class="stat reveal" style="--d:.12s"><b>4 países</b><span>México, Colombia, Argentina y Brasil</span></div>
+      <div class="stat reveal" style="--d:.19s"><b>USD y EUR</b><span>Cuentas con datos bancarios en EE. UU. y Europa</span></div>
+      <div class="stat todo reveal" style="--d:.26s"><b>[X mil]</b><span>[Empresas activas o volumen movido: completar con dato real]</span></div>
+    </div>
+    <div class="marquee-wrap reveal">
+      <p class="cap">Elegido por los equipos que construyen negocios globales desde América Latina.</p>
+      <div class="marquee" aria-label="Empresas que usan ARQ">
+        <div class="marquee-track">
+          <img src="https://www.arqfinance.com/_astro/partner-1.D_mMeR3E.webp" alt="">
+          <img src="https://www.arqfinance.com/_astro/partner-11.BXKxPLMq.webp" alt="">
+          <img src="https://www.arqfinance.com/_astro/partner-3.COo-REMi.webp" alt="">
+          <img src="https://www.arqfinance.com/_astro/partner-4.nr9aVYWp.webp" alt="">
+          <img src="https://www.arqfinance.com/_astro/partner-6.D3TfgtO8.webp" alt="">
+          <img src="https://www.arqfinance.com/_astro/partner-7.Bqnf9oLd.webp" alt="">
+          <img src="https://www.arqfinance.com/_astro/partner-8.Dorq1Qq0.webp" alt="">
+          <img src="https://www.arqfinance.com/_astro/partner-9.DxtAh7CF.webp" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. PRODUCTOS -->
+<section class="block light" style="padding-top:8px">
+  <div class="wrap">
+
+    <div class="product">
+      <div class="pt reveal">
+        <span class="eyebrow">Pagos internacionales</span>
+        <h2>Paga a proveedores y socios en Estados Unidos y Europa</h2>
+        <p>Automatiza los pagos a proveedores y contratistas internacionales y en América Latina, directo desde tu cuenta ARQ business.</p>
+        <ul><li>Pagos en lote</li><li>Proveedores y contratistas en todo el mundo</li><li>Todo desde una sola cuenta</li></ul>
+        <a class="btn btn-burgundy" href="#e-registro" data-cta="prod-pagos">Comienza a pagar globalmente <span class="arr">→</span></a>
+      </div>
+      <div class="media reveal" style="--d:.1s"><img src="https://www.arqfinance.com/_astro/business-benefit-1-es.Cd3D0XZC_2eNwPp.webp" alt="Pagos internacionales en ARQ business" loading="lazy"></div>
+    </div>
+
+    <div class="product rev">
+      <div class="pt reveal">
+        <span class="eyebrow">Cuentas multimoneda</span>
+        <h2>Opera globalmente, con pagos locales</h2>
+        <p>Obtén datos de cuenta empresarial en EE. UU. y Europa para enviar y recibir USD y EUR¹ como una empresa local, sin establecer entidades en el extranjero.</p>
+        <ul><li>Recibe pagos sin fricciones</li><li>Protege tu tesorería en dólares y euros digitales</li><li>Opera como empresa local</li></ul>
+        <a class="btn btn-burgundy" href="#e-registro" data-cta="prod-cuentas">Abre tu cuenta global <span class="arr">→</span></a>
+      </div>
+      <div class="media reveal" style="--d:.1s"><img src="https://www.arqfinance.com/_astro/business-benefit-2-es.DtLXEOiA_ZNxjGQ.webp" alt="Cuentas multimoneda USD y EUR" loading="lazy"></div>
+    </div>
+
+    <div class="product">
+      <div class="pt reveal">
+        <span class="eyebrow">Tarjetas corporativas</span>
+        <h2>Tarjetas inteligentes para equipos globales</h2>
+        <p>Emite tarjetas corporativas para tu equipo para viajes, software y gastos globales, con controles en tiempo real y la mejor tasa de conversión, sin costos ocultos.</p>
+        <ul><li>Límites de gasto por persona o equipo</li><li>Aceptación global</li><li>Controles en tiempo real</li></ul>
+        <a class="btn btn-burgundy" href="#e-registro" data-cta="prod-tarjetas">Obtener tarjetas globales <span class="arr">→</span></a>
+      </div>
+      <div class="media reveal" style="--d:.1s"><img src="https://www.arqfinance.com/_astro/business-benefit-3-en.Bo8iLZwk_8RFcz.webp" alt="Tarjetas corporativas ARQ" loading="lazy"></div>
+    </div>
+
+    <div class="product rev">
+      <div class="pt reveal">
+        <span class="eyebrow">Tipo de cambio</span>
+        <h2>Cambio que funciona a la escala de tu negocio</h2>
+        <p>Accede a tasas de conversión transparentes y de grado institucional para crecer tus operaciones internacionales de manera eficiente.</p>
+        <div class="rate-box">
+          <div><small>Compra 1 USDc</small><b>3,305.34 COP</b></div>
+          <div><small>Venta 1 USDc</small><b>3,277.05 COP</b></div>
+        </div>
+        <p class="fine">Valores de referencia. Conectar al widget de tasas en vivo.</p>
+      </div>
+      <div class="media reveal" style="--d:.1s"><img src="https://www.arqfinance.com/_astro/business-app-es.hrPkyyJW_Z2uiToX.webp" alt="Plataforma ARQ business" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+<!-- 6. CONFIANZA -->
+<section class="block dark">
+  <div class="wrap">
+    <h2 class="reveal" style="max-width:680px">Opera con claridad y respaldo</h2>
+    <p class="sub reveal" style="margin-top:14px">Información legal y regulatoria a la vista, sin letra pequeña escondida.</p>
+    <div class="trust">
+      <div class="tcard todo reveal" style="--d:.05s"><h3>Respaldados por los mejores</h3><p>Muestra aquí los logos de tus inversionistas.</p></div>
+      <div class="tcard reveal" style="--d:.12s"><h3>Entidades que prestan el servicio</h3><p>Servicios de activos virtuales: DolarApp México S.A. de C.V. Servicios de tarjeta en Colombia: DAPP Colombia S.A.S., NIT 901644165-9.</p></div>
+      <div class="tcard reveal" style="--d:.19s"><h3>Atención de PQRs</h3><p>Escríbenos a help@arqfinance.com.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. TESTIMONIOS -->
+<section class="block light" id="e-clientes">
+  <div class="wrap">
+    <h2 class="reveal center">Lo que dicen quienes ya usan ARQ</h2>
+    <p class="sub reveal center" style="margin-left:auto;margin-right:auto;margin-top:14px">Las empresas en Latinoamérica gestionan sus finanzas con ARQ.</p>
+    <div class="quotes">
+      <figure class="quote hl reveal">
+        <p>“Implementar ARQ business redujo los gastos totales de la empresa en un 2% gracias a sus tasas de cambio competitivas.”</p>
+        <cite><img src="https://www.arqfinance.com/_astro/slide-5.DPJ-iJAH_Z2r4fEP.webp" alt=""><span><b>Quinto Van Peborgh</b>Co-Founder & CEO @ Rintin</span></cite>
+      </figure>
+      <figure class="quote reveal" style="--d:.08s">
+        <p>“El equipo de ARQ siempre está disponible y nos ayudan a ahorrar decenas de miles de dólares cada semana. Verdaderamente la mejor tasa de cambio del mercado.”</p>
+        <cite><img src="https://www.arqfinance.com/_astro/slide-2.Dfyh3610_Z2ljd4l.webp" alt=""><span><b>Eduardo Guzman</b>CFO @ 99minutos</span></cite>
+      </figure>
+      <figure class="quote reveal">
+        <p>“Nuestro equipo puede pagar a proveedores internacionales en cuestión de minutos usando la plataforma de ARQ. Ahorra dinero y, lo más importante, tiempo.”</p>
+        <cite><img src="https://www.arqfinance.com/_astro/slide-3.DffflrBR_2bcWS3.webp" alt=""><span><b>Tomas Mindlin</b>Co-Founder & CEO @ Tapi</span></cite>
+      </figure>
+      <figure class="quote reveal" style="--d:.08s">
+        <p>“ARQ ha ayudado a que pagar a proveedores internacionales sea un proceso fluido para Kaszek.”</p>
+        <cite><img src="https://www.arqfinance.com/_astro/slide-1.BblsdH49_Z1HPmCz.webp" alt=""><span><b>Hernan Kazah</b>Co-Founder & Managing Partner @ Kaszek</span></cite>
+      </figure>
+    </div>
+    <div class="qctrl">
+      <div class="dots" aria-hidden="true"></div>
+      <div class="arrows">
+        <button type="button" aria-label="Testimonio anterior">←</button>
+        <button type="button" aria-label="Siguiente testimonio">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FAQ -->
+<section class="block light" id="e-faq" style="padding-top:0">
+  <div class="wrap">
+    <h2 class="reveal center">Preguntas frecuentes</h2>
+    <div class="faq reveal">
+      <details><summary>¿Para qué tipo de empresas es ARQ business?</summary><div class="ans">Para startups y pymes con sede en México, Colombia, Argentina y Brasil que operan a través de fronteras y necesitan acceso confiable a finanzas globales sin abandonar su mercado local.</div></details>
+      <details><summary>¿Necesito una entidad en el exterior para tener cuenta en USD o EUR?</summary><div class="ans">No. Obtienes datos de cuenta empresarial en EE. UU. y Europa para enviar y recibir USD y EUR sin establecer entidades en el extranjero.</div></details>
+      <details><summary>¿Cómo funcionan las conversiones?</summary><div class="ans">Los pagos recibidos se convierten automáticamente a USDc o EURc (dólares o euros digitales), y los pagos enviados son el producto de la venta de esos activos. Los activos virtuales no son moneda de curso legal en Colombia e implican riesgos.</div></details>
+      <details><summary>¿Puedo emitir tarjetas para mi equipo?</summary><div class="ans">Sí. Puedes emitir tarjetas corporativas con límites de gasto, controles en tiempo real y aceptación global.</div></details>
+      <details><summary>¿Cómo contacto a soporte?</summary><div class="ans">Escríbenos a help@arqfinance.com o visita el Centro de Ayuda.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 9. CTA FINAL -->
+<section class="cta" id="e-registro">
+  <div class="wrap reveal">
+    <h2>Tu empresa, sin fronteras.</h2>
+    <p>Abre tu cuenta ARQ business y empieza a operar globalmente con precisión local.</p>
+    <a class="btn btn-offwhite" href="#" data-cta="final">Abre tu cuenta <span class="arr">→</span></a>
+  </div>
+</section>
+
+</main>
+
+<main id="view-personal" class="view" hidden>
+<!-- 1. HERO CON VIDEO -->
+<section class="p-hero">
+  <video id="hero-video" autoplay muted loop playsinline preload="metadata" poster="https://www.arqfinance.com/_astro/hero.NEH5cOVc.webp"
+         data-desktop-src="https://cdn.arqfinance.com/9a062e05-7674-4037-b7e7-937e2901f3b5/hero-video-bg-desktop-boneta.mp4"
+         data-mobile-src="https://cdn.arqfinance.com/9a062e05-7674-4037-b7e7-937e2901f3b5/hero-video-bg-mobile-boneta.mp4"></video>
+  <div class="wrap">
+    <div>
+      <h1>Hacer crecer tu patrimonio<br>no es suerte, es ARQ.</h1>
+      <p>Cambia, paga, recibe e invierte en dólares y euros digitales a la tasa real del mercado, sin comisiones ocultas, desde cualquier lugar.</p>
+      <div class="actions">
+        <a class="btn btn-offwhite" href="#p-registro" data-cta="hero">Registrarse <span class="arr">→</span></a>
+        <a class="btn btn-outline on-dark" href="#p-productos" data-cta="hero-secundario">Conocer más</a>
+      </div>
+    </div>
+    <div class="chips" aria-label="Calificaciones de la app">
+      <span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.67 12.79c-.02-2.72 2.23-4.05 2.34-4.11-1.28-1.86-3.26-2.12-3.96-2.14-1.67-.17-3.28 1-4.13 1-.86 0-2.17-.98-3.58-.95-1.81.03-3.51 1.08-4.44 2.7-1.92 3.32-.49 8.19 1.35 10.87.92 1.31 1.99 2.78 3.4 2.73 1.37-.06 1.89-.88 3.55-.88 1.64 0 2.13.88 3.56.85 1.48-.02 2.41-1.32 3.29-2.64 1.06-1.5 1.49-2.98 1.51-3.06-.04-.02-2.87-1.1-2.9-4.37zM14.96 4.78c.74-.93 1.25-2.18 1.11-3.46-1.07.05-2.41.74-3.18 1.64-.68.8-1.29 2.1-1.13 3.33 1.2.09 2.43-.6 3.2-1.51z"/></svg>4.7<small>/5</small></span>
+      <span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>4.5<small>/5</small></span>
+    </div>
+  </div>
+</section>
+
+<!-- 2. CAMBIO: celular + tarjeta sobre verde -->
+<section class="p-green">
+  <div class="wrap">
+    <div class="img reveal"><img src="https://www.arqfinance.com/_astro/arq-app-es-co.DZjt2pmW_Z1uCnOr.webp" alt="App y tarjeta ARQ"></div>
+    <div>
+      <h2 class="reveal">Tu banco odiaría<br>que vieras nuestro cambio.</h2>
+      <p class="sub reveal">Cambia a dólares digitales y euros digitales en segundos, a la tasa real del mercado. Sin comisiones ocultas.</p>
+      <a class="btn btn-white reveal" href="#p-cambio" data-cta="cambio">Cambia ahora <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 3. AL ELEGIR ARQ, ELIGES (lista editorial) -->
+<section class="p-pillars">
+  <div class="wrap">
+    <div class="ttl reveal">
+      <span class="eyebrow">Por qué ARQ</span>
+      <h2>Al elegir ARQ, eliges</h2>
+      <p>Claridad desde el primer día: sin letra pequeña, sin sorpresas.</p>
+    </div>
+    <div>
+      <div class="p-row reveal"><span class="n">01</span><div><h3>La tasa real del mercado</h3><p>Sin comisiones ocultas. Ves lo que pagas antes de cambiar.</p></div></div>
+      <div class="p-row reveal"><span class="n">02</span><div><h3>Segundos, no días</h3><p>Cambia a dólares y euros digitales en segundos, desde tu celular.</p></div></div>
+      <div class="p-row reveal"><span class="n">03</span><div><h3>Una cuenta tan global como tus ingresos</h3><p>Recibe pagos de Estados Unidos y Europa con tus propios datos de cuenta.</p></div></div>
+      <div class="p-row reveal"><span class="n">04</span><div><h3>Una tarjeta que va contigo</h3><p>En casa o en el extranjero, paga siempre a la tasa real y con cashback.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. FRANJA AZUL: prensa (carrusel infinito) -->
+<section class="p-press">
+  <div class="wrap">
+    <h2 class="reveal">Esto es lo que dicen de nosotros</h2>
+    <div class="marquee" aria-label="Medios que hablan de ARQ">
+      <div class="marquee-track">
+        <img src="https://www.arqfinance.com/_astro/bloomberg.BDicKIKr.svg" alt="Bloomberg">
+        <img src="https://www.arqfinance.com/_astro/forbes.Dz3vZZSB.svg" alt="Forbes">
+        <img src="https://www.arqfinance.com/_astro/el-tiempo.CmvBShZ-.svg" alt="El Tiempo">
+        <img src="https://www.arqfinance.com/_astro/valora-atlantic.BvX9Cz4F.svg" alt="Valora Analitik">
+        <img src="https://www.arqfinance.com/_astro/la-republica.Vt3ulvCZ.svg" alt="La República">
+        <img src="https://www.arqfinance.com/_astro/infobae.BCz3heBQ.svg" alt="Infobae">
+        <img src="https://www.arqfinance.com/_astro/bloomberg-en-linea.BaGs9W0c.svg" alt="Bloomberg Línea">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. BENEFICIOS: tarjetas grises con imagen a sangre -->
+<section class="p-benefits" id="p-productos">
+  <div class="wrap">
+    <div class="p-head reveal">
+      <h2>Todo lo que necesitas<br>para tu patrimonio global</h2>
+      <p>Cambia, paga, recibe e invierte. Todo en una sola app.</p>
+    </div>
+
+    <article class="p-benefit reveal">
+      <div class="tx">
+        <div>
+          <h2>La tarjeta para un patrimonio global.</h2>
+          <p>En casa o en el extranjero, paga siempre a la tasa real del mercado y con un cashback inigualable.</p>
+        </div>
+        <div><a class="btn btn-black" href="#p-registro" data-cta="prod-tarjeta">Pide tu tarjeta ARQ <span class="arr">→</span></a></div>
+      </div>
+      <div class="im"><img src="https://www.arqfinance.com/_astro/benefit-1-en-all.DXNm6J_1_1EP5q.webp" alt="Tarjeta ARQ" loading="lazy"></div>
+    </article>
+
+    <article class="p-benefit rev reveal">
+      <div class="tx">
+        <div>
+          <h2>Una cuenta tan global como tus ingresos.</h2>
+          <p>Envía y recibe pagos desde Estados Unidos y Europa con tus propios datos de cuenta, a la tasa real del mercado y sin sorpresas.</p>
+        </div>
+        <div><a class="btn btn-black" href="#p-registro" data-cta="prod-cuenta">Abre tu cuenta global <span class="arr">→</span></a></div>
+      </div>
+      <div class="im"><img src="https://www.arqfinance.com/_astro/benefit-2-es-co.DaxhS8_G_Z1728Cl.webp" alt="Cuenta global ARQ" loading="lazy"></div>
+    </article>
+
+    <article class="p-benefit reveal">
+      <div class="tx">
+        <div>
+          <h2>Gestiona tu capital a escala global.</h2>
+          <p>Accede a cuentas remuneradas, acciones y ETFs líderes en mercados internacionales con una asesoría de inversión global.</p>
+        </div>
+        <div><a class="btn btn-black" href="#p-registro" data-cta="prod-inversion">Empieza hoy <span class="arr">→</span></a></div>
+      </div>
+      <div class="im"><img src="https://www.arqfinance.com/_astro/benefit-3-es-co.fEWbibNk_aejRg.webp" alt="Inversiones en ARQ" loading="lazy"></div>
+    </article>
+  </div>
+</section>
+
+<!-- 6. CONVERSOR: celular sobre burdeos + calculadora -->
+<section class="p-ex" id="p-cambio">
+  <div class="wrap">
+  <div class="l"><img src="https://www.arqfinance.com/_astro/exchange-app-es-co.D25RmYHM_ZnpPjo.webp" alt="Alertas de precio en la app de ARQ" loading="lazy"></div>
+  <div class="r">
+    <h2 class="reveal">No nos creas.<br>Compruébalo por ti mismo.</h2>
+    <div class="p-calc reveal" id="calc">
+      <div class="row">
+        <span class="cur"><img id="calc-flag-from" src="https://www.arqfinance.com/_astro/co.DbTl_jdJ.svg" alt=""><span id="calc-from">COP</span></span>
+        <input class="val" id="calc-amt" inputmode="decimal" value="1000000" aria-label="Monto a cambiar">
+      </div>
+      <div class="mid"><button type="button" class="swapbtn" id="calc-swap" aria-label="Invertir monedas">⇅</button></div>
+      <div class="row">
+        <span class="cur"><img id="calc-flag-to" src="https://www.arqfinance.com/_astro/us.BxQaODEj.svg" alt=""><span id="calc-to">USDc</span></span>
+        <div class="val out" id="calc-out">0</div>
+      </div>
+      <div class="rate"><span id="calc-rate">1 USDc = 3.305,34 COP</span> · Tasa de referencia</div>
+    </div>
+    <a class="btn btn-black reveal" href="#p-registro" data-cta="conversor">Cambia ahora <span class="arr">→</span></a>
+    <p class="legal reveal">USDc y EURc son activos virtuales y no moneda fiduciaria. Para más información, lee el artículo con la explicación sobre qué son las stablecoins.</p>
+  </div>
+  </div>
+</section>
+
+<!-- 7. INVERSIONISTAS -->
+<section class="p-inv">
+  <div class="wrap">
+    <span class="eyebrow reveal">Nuestros inversionistas</span>
+    <h2 class="reveal">Respaldados por los mejores.</h2>
+    <div class="tcard todo reveal"><h3>[Logos de inversionistas]</h3><p>Reemplazar por los logos reales de los inversionistas de ARQ.</p></div>
+  </div>
+</section>
+
+<!-- 8. TESTIMONIOS sobre azul petróleo -->
+<section class="p-teal" id="p-clientes">
+  <div class="wrap">
+    <div class="reveal">
+      <h2>2 millones de personas en todo el mundo ya gestionan sus finanzas con ARQ.</h2>
+      <div class="chips">
+        <span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.67 12.79c-.02-2.72 2.23-4.05 2.34-4.11-1.28-1.86-3.26-2.12-3.96-2.14-1.67-.17-3.28 1-4.13 1-.86 0-2.17-.98-3.58-.95-1.81.03-3.51 1.08-4.44 2.7-1.92 3.32-.49 8.19 1.35 10.87.92 1.31 1.99 2.78 3.4 2.73 1.37-.06 1.89-.88 3.55-.88 1.64 0 2.13.88 3.56.85 1.48-.02 2.41-1.32 3.29-2.64 1.06-1.5 1.49-2.98 1.51-3.06-.04-.02-2.87-1.1-2.9-4.37zM14.96 4.78c.74-.93 1.25-2.18 1.11-3.46-1.07.05-2.41.74-3.18 1.64-.68.8-1.29 2.1-1.13 3.33 1.2.09 2.43-.6 3.2-1.51z"/></svg>4.7<small>/5</small></span>
+        <span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>4.5<small>/5</small></span>
+      </div>
+      <a class="btn btn-offwhite" href="#p-registro" data-cta="teal-descarga">Descarga la app <span class="arr">→</span></a>
+    </div>
+    <div>
+      <div class="quotes">
+        <figure class="quote reveal">
+          <p>“He estado en varios países tales como Japón, EEUU, Europa y siempre pago con ARQ, no importa la moneda local siempre pago con la tarjeta que hace la conversión, me da seguridad, tranquilidad y además recargo con mi moneda local, esta tarjeta es fabulosa, para los viajeros es lo mejor la reciben en cualquier parte del mundo.”</p>
+          <cite><span><b>Juan Manuel G.</b>Medellín • 28 Aug 2025</span></cite>
+        </figure>
+        <figure class="quote reveal" style="--d:.08s">
+          <p>“Muy buena experiencia. No tuve ningún problema en ningún momento y la tarjeta me funcionó en todos los lugares de Europa, en comercios grandes e incluso en un puesto de frutas en la calle. Todo fue súper fácil y, lo mejor de todo, sin comisiones.”</p>
+          <cite><span><b>Hordania S.</b>Bogotá • 14 Oct 2025</span></cite>
+        </figure>
+        <figure class="quote reveal" style="--d:.16s">
+          <p>“Me encanta ARQ. Es absolutamente la mejor forma de recibir pagos en EE.UU. y poder usar ese saldo con la mejor tasa de cambio aquí en Colombia.”</p>
+          <cite><span><b>Natalia R.</b>Bogotá • 30 Dec 2025</span></cite>
+        </figure>
+      </div>
+      <div class="qctrl">
+        <div class="dots" aria-hidden="true"></div>
+        <div class="arrows">
+          <button type="button" aria-label="Testimonio anterior">←</button>
+          <button type="button" aria-label="Siguiente testimonio">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. FAQ + claridad legal -->
+<section class="p-faq" id="p-faq">
+  <div class="wrap">
+    <div class="ttl reveal">
+      <h2>Preguntas frecuentes</h2>
+      <p>Lo esencial, sin letra pequeña. Si necesitas más, escríbenos a help@arqfinance.com.</p>
+    </div>
+    <div class="faq reveal">
+      <details><summary>¿Qué son USDc y EURc?</summary><div class="ans">Son dólares y euros digitales (stablecoins). Son activos virtuales y no moneda fiduciaria ni de curso legal en Colombia, e implican riesgos.</div></details>
+      <details><summary>¿A qué tasa cambio mi dinero?</summary><div class="ans">A la tasa real del mercado, sin comisiones ocultas.</div></details>
+      <details><summary>¿Puedo recibir pagos de Estados Unidos y Europa?</summary><div class="ans">Sí. Tienes tus propios datos de cuenta para enviar y recibir pagos desde Estados Unidos y Europa, a la tasa real del mercado.</div></details>
+      <details><summary>¿Qué puedo hacer con la tarjeta ARQ?</summary><div class="ans">Pagar en casa o en el extranjero a la tasa real del mercado y con cashback.</div></details>
+      <details><summary>¿Quién presta el servicio?</summary><div class="ans">Los servicios de activos virtuales los ofrece en Colombia DolarApp México S.A. de C.V. Los servicios relacionados con la tarjeta de crédito los presta DAPP Colombia S.A.S., NIT 901644165-9.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 10. DESCARGA CON QR -->
+<section class="p-qr" id="p-registro">
+  <div class="l"><div class="qrbox"><img src="https://www.arqfinance.com/_astro/qr-code.CypiRRay.webp" alt="Código QR para descargar la app de ARQ"></div></div>
+  <div class="r">
+    <h2 class="reveal">Descarga ARQ.<br>Únete hoy.</h2>
+    <p class="reveal">Únete a los 2 millones de personas que ya gestionan su patrimonio con ARQ.</p>
+    <div class="badges reveal">
+      <a href="#" data-cta="badge-appstore"><img src="https://www.arqfinance.com/_astro/app-store-badge-es.mpKR2dAW.svg" alt="Descargar en App Store"></a>
+      <a href="#" data-cta="badge-googleplay"><img src="https://www.arqfinance.com/_astro/google-play-badge-es.CU2piSXn.svg" alt="Disponible en Google Play"></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links"><a href="#">Sobre nosotros</a><a href="#">Centro de Ayuda</a><a href="#">Legal</a><a href="#">Trabaja en ARQ</a><a href="#">Contáctanos</a></div>
+    <p>¹Todas las transferencias recibidas serán automáticamente convertidas a dólares o euros digitales. Todas las transferencias enviadas son el resultado de la venta de dólares o euros digitales.</p>
+    <p>Los servicios de activos virtuales son ofrecidos y promocionados en Colombia por DolarApp México S.A. de C.V. Los activos virtuales no son moneda de curso legal en Colombia e implican riesgos. Todos los pagos entrantes se convertirán automáticamente a USDc o EURc (activos virtuales). Todos los pagos salientes corresponden al producto de la venta de USDc o EURc (activos virtuales). Recibiremos PQRs sobre los servicios prestados en help@arqfinance.com.</p>
+    <p>Los servicios relacionados con la tarjeta de crédito son proporcionados en Colombia por DAPP Colombia S.A.S., NIT 901644165-9.</p>
+    <p>DolarApp Inc. 2026</p>
+    <img class="brand" src="https://www.arqfinance.com/_astro/logo.D534Oqrz_ZRshG1.svg" alt="ARQ">
+  </div>
+</footer>
+
+<!-- Modal corto: De DolarApp a ARQ -->
+<div class="brand-modal" id="brand-modal" role="dialog" aria-modal="true" aria-labelledby="bm-title" aria-hidden="true">
+  <div class="bm-card">
+    <button type="button" class="bm-close" id="brand-close" aria-label="Cerrar">×</button>
+    <div class="bm-hero" aria-hidden="true">
+      <span class="bm-from">DolarApp</span>
+      <span class="bm-arrow">→</span>
+      <span class="bm-to"><img src="https://www.arqfinance.com/_astro/logo.D534Oqrz_ZRshG1.svg" alt=""></span>
+    </div>
+    <div class="bm-body">
+      <h2 id="bm-title">DolarApp ahora es ARQ</h2>
+      <p>Crecimos más allá de los pagos transfronterizos, y nuestro nombre tenía que crecer con nosotros.</p>
+      <ol class="bm-steps">
+        <li><b>Hace 3 años</b><span>Lanzamos DolarApp para pagar y recibir en dólares con tasas justas.</span></li>
+        <li><b>Hoy</b><span>Más de 2 millones de clientes y nuevos productos: inversión, crédito y servicios del día a día.</span></li>
+        <li><b>2 de marzo de 2026</b><span>Nace ARQ, nuestra nueva marca para una plataforma financiera global.</span></li>
+      </ol>
+      <div class="bm-actions">
+        <button type="button" class="btn btn-black bm-ok" id="brand-ok" data-cta="brand-modal-ok">Entendido</button>
+        <a class="bm-link" href="https://www.arqfinance.com/es-CO/blog/product-releases/announcement" target="_blank" rel="noopener" data-cta="brand-modal-anuncio">Leer el anuncio completo</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

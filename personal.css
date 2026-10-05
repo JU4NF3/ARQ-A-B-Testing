@@ -1,0 +1,242 @@
+/* =====================================================================
+   PÁGINA PERSONAL: estructura propia con los gráficos de la web original
+   (se carga después de styles.css y reutiliza sus tokens y componentes)
+   ===================================================================== */
+.btn-black{background:var(--black);color:var(--white)}
+
+/* Vistas Empresas / Personal dentro de una sola página */
+.view[hidden]{display:none!important}
+.view{animation:viewIn .35s var(--ease)}
+@keyframes viewIn{from{opacity:0}to{opacity:1}}
+
+/* ---------- Banner animado "DolarApp ahora es ARQ" ---------- */
+.banner{padding:0}
+.banner-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:18px;height:36px;padding:0 16px;border:0;background:transparent;color:var(--black);font:inherit;font-size:.875rem;cursor:pointer}
+.banner-btn:focus-visible{outline:2px solid var(--black);outline-offset:-4px}
+.ticker{height:20px;overflow:hidden;text-align:left;line-height:20px}
+/* Ciclo continuo de 10,5 s con 3 filas: [A animada] [B] [A' estática = estado inicial de A].
+   Al terminar, la cinta sube hasta A' y salta a A sin que se note (se ven idénticas),
+   y A reinicia su animación mientras está fuera de la vista. */
+.ticker-inner{display:block;animation:tick 10.5s infinite}
+.ticker-inner>span{display:block;height:20px;white-space:nowrap}
+@keyframes tick{
+  0%,56%{transform:translateY(0)}
+  62%,88%{transform:translateY(-20px)}
+  94%,100%{transform:translateY(-40px)}
+}
+/* Estado base = estado final (sin animaciones, p. ej. "reducir movimiento"). */
+/* 1) DolarApp se tacha */
+.was{position:relative;display:inline-block;font-weight:600;opacity:.55;animation:wasDim 10.5s infinite}
+.was::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:2px;background:currentColor;transform-origin:left;animation:strike 10.5s infinite}
+/* 2) "ahora es" entra desde la izquierda */
+.is{display:inline-block;font-weight:600;animation:isIn 10.5s infinite}
+/* 3) el logo de ARQ entra animado */
+.banner-logo{display:inline-block;height:15px;width:auto;margin-left:3px;vertical-align:-2px;filter:brightness(0);animation:logoIn 10.5s infinite}
+/* Fila A' (copia estática del inicio): DolarApp sin tachar */
+.was.static{opacity:1;animation:none}
+.was.static::after{animation:none;transform:scaleX(0)}
+@keyframes wasDim{0%,10%{opacity:1}17%,100%{opacity:.55}}
+@keyframes strike{0%,10%{transform:scaleX(0)}17%,100%{transform:scaleX(1)}}
+@keyframes isIn{0%,20%{opacity:0;transform:translateX(-18px)}27%,100%{opacity:1;transform:none}}
+@keyframes logoIn{0%,30%{opacity:0;transform:translateY(-16px)}38%,100%{opacity:1;transform:none}}
+.ticker-inner,.was,.was::after,.is,.banner-logo{animation-timing-function:cubic-bezier(.4,0,.2,1)}
+.banner-more{flex:none;font-weight:500;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.banner-btn:hover .banner-more{text-decoration-thickness:2px}
+.banner-more .arr{display:inline-block;transition:transform .2s var(--ease)}
+.banner-btn:hover .banner-more .arr{transform:translateX(4px)}
+
+/* ---------- Modal "De DolarApp a ARQ" ---------- */
+.brand-modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .25s var(--ease),visibility .25s}
+.brand-modal.open{opacity:1;visibility:visible}
+.bm-card{position:relative;width:100%;max-width:560px;max-height:calc(100vh - 40px);overflow:auto;background:var(--off-white);color:var(--black);transform:translateY(20px) scale(.98);transition:transform .35s var(--ease)}
+.brand-modal.open .bm-card{transform:none}
+.bm-close{position:absolute;top:12px;right:12px;z-index:2;width:40px;height:40px;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer;transition:background-color .15s var(--ease)}
+.bm-close:hover{background:rgba(255,255,255,.3)}
+.bm-close:focus-visible,.bm-ok:focus-visible,.bm-link:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.bm-hero{background:var(--burgundy);color:var(--off-white);padding:56px 24px 44px;display:flex;align-items:center;justify-content:center;gap:28px}
+.bm-from{font-size:1.5rem;font-weight:400;letter-spacing:-.02em;position:relative;opacity:.9}
+.bm-from::after{content:"";position:absolute;left:-4px;right:-4px;top:55%;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left}
+.bm-arrow{font-size:1.6rem;opacity:.7}
+.bm-to img{height:36px;width:auto;filter:brightness(0) invert(1)}
+.brand-modal.open .bm-from{animation:bmFrom 1.6s .3s var(--ease) both}
+.brand-modal.open .bm-from::after{animation:bmStrike .6s .7s var(--ease) both}
+.brand-modal.open .bm-arrow{animation:bmPop .5s 1s var(--ease) both}
+.brand-modal.open .bm-to{animation:bmTo .7s 1.2s var(--ease) both}
+@keyframes bmFrom{0%{opacity:0;transform:translateX(-12px)}30%,100%{opacity:.9;transform:none}}
+@keyframes bmStrike{to{transform:scaleX(1)}}
+@keyframes bmPop{from{opacity:0;transform:translateX(-10px)}to{opacity:.7;transform:none}}
+@keyframes bmTo{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+.bm-body{padding:32px 32px 28px}
+.bm-body h2{font-size:clamp(1.6rem,4vw,2rem);margin-bottom:10px}
+.bm-body>p{color:var(--brown-700);font-size:.95rem}
+.bm-steps{list-style:none;margin:26px 0 8px;position:relative}
+.bm-steps::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--brown-200)}
+.bm-steps li{position:relative;padding:0 0 18px 28px}
+.bm-steps li:last-child{padding-bottom:0}
+.bm-steps li::before{content:"";position:absolute;left:0;top:6px;width:11px;height:11px;background:var(--brown-200)}
+.bm-steps li:last-child::before{background:var(--burgundy)}
+.bm-steps b{display:block;font-weight:500;font-size:.95rem}
+.bm-steps span{color:var(--brown-700);font-size:.85rem}
+.bm-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:26px}
+.bm-ok{border:0;cursor:pointer;font-family:inherit}
+.bm-link{font-size:.875rem;text-decoration:underline;text-underline-offset:3px;color:var(--brown-700)}
+.bm-link:hover{color:var(--black)}
+body.modal-open{overflow:hidden}
+@media(max-width:560px){
+  .banner-btn{gap:10px;font-size:.78rem}
+  .bm-body{padding:26px 22px 22px}
+  .bm-hero{padding:52px 16px 36px;gap:18px}
+}
+.btn-black:hover{background:var(--burgundy)}
+
+/* ---------- Hero con video a pantalla completa ---------- */
+.p-hero{position:relative;min-height:calc(100vh - 36px);max-height:880px;display:flex;align-items:flex-end;color:var(--off-white);overflow:hidden;
+        background:#0b0b0b url("https://www.arqfinance.com/_astro/hero.NEH5cOVc.webp") center/cover no-repeat}
+.p-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.8)}
+.p-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,.65) 100%)}
+.p-hero .wrap{position:relative;z-index:1;width:100%;padding-bottom:64px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.p-hero h1{font-size:clamp(2.4rem,5vw,4rem);max-width:920px}
+.p-hero p{margin-top:20px;font-size:1.125rem;max-width:520px;opacity:.92}
+.p-hero .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.p-hero .chips{display:flex;gap:12px}
+.p-hero h1,.p-hero p,.p-hero .actions,.p-hero .chips{animation:rise .9s var(--ease) both}
+.p-hero p{animation-delay:.12s}.p-hero .actions{animation-delay:.24s}.p-hero .chips{animation-delay:.36s}
+.chip{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(244,236,230,.4);padding:10px 16px;font-size:.95rem;backdrop-filter:blur(6px);background:rgba(0,0,0,.18)}
+.chip svg{width:18px;height:18px;fill:currentColor}
+.chip small{opacity:.7}
+
+/* ---------- Sección verde con celular flotante ---------- */
+/* El celular sobresale por debajo de la sección verde y se apoya sobre la siguiente (continuidad) */
+.p-green{position:relative;z-index:2;background:var(--green);color:var(--off-white)}
+.p-green .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;min-height:640px}
+.p-green .img{display:flex;justify-content:center;align-items:flex-end;align-self:stretch;padding:0 120px 0 0}
+.p-green .img img{height:700px;max-height:none;width:auto;max-width:none;margin-bottom:-150px;animation:float 6s ease-in-out infinite;filter:drop-shadow(0 30px 40px rgba(0,0,0,.35))}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.p-green p.sub{color:#b9d4c6;margin:18px 0 30px}
+.p-green h2{font-size:clamp(2rem,3.6vw,3rem)}
+
+/* ---------- Pilares como lista editorial ---------- */
+.p-pillars{position:relative;z-index:1;background:var(--off-white);padding:240px 0 96px}
+.p-pillars .wrap{display:grid;grid-template-columns:5fr 7fr;gap:72px;align-items:start}
+.p-pillars .ttl{position:sticky;top:110px}
+.p-pillars .ttl p{margin-top:16px;color:var(--brown-700);max-width:380px}
+.p-row{display:grid;grid-template-columns:56px 1fr;gap:16px;padding:30px 0;border-top:1px solid rgba(0,0,0,.18);transition:transform .3s var(--ease)}
+.p-row:last-child{border-bottom:1px solid rgba(0,0,0,.18)}
+.p-row:hover{transform:translateX(10px)}
+.p-row .n{color:var(--taupe);font-size:.85rem;letter-spacing:.08em;padding-top:8px;transition:color .2s var(--ease)}
+.p-row:hover .n{color:var(--burgundy-600)}
+.p-row h3{font-weight:300;font-size:clamp(1.4rem,2.2vw,1.9rem);letter-spacing:-.02em;line-height:1.2;margin-bottom:8px}
+.p-row p{color:var(--brown-700);max-width:480px}
+
+/* ---------- Franja azul de prensa (carrusel infinito) ---------- */
+.p-press{background:var(--blue);color:var(--black);padding:56px 0;overflow:hidden}
+.p-press .wrap{display:grid;grid-template-columns:1fr 1.6fr;gap:48px;align-items:center}
+.p-press h2{font-size:clamp(1.6rem,2.6vw,2.2rem);margin:0}
+.p-press .marquee{-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.p-press .marquee-track{gap:64px}
+.p-press .marquee-track img{width:auto;height:30px;opacity:.85}
+.p-press .marquee-track img:hover{opacity:1}
+
+/* ---------- Beneficios: tarjetas grises con imagen a sangre ---------- */
+.p-benefits{background:var(--white);padding:96px 0}
+.p-head{margin-bottom:40px;max-width:640px}
+.p-head p{margin-top:14px;color:var(--brown-700)}
+.p-benefit{display:grid;grid-template-columns:1fr 1.1fr;background:var(--brown-50);margin-bottom:24px;overflow:hidden}
+.p-benefit .tx{padding:44px 40px;display:flex;flex-direction:column;justify-content:space-between;gap:48px}
+.p-benefit h2{font-size:clamp(1.7rem,2.6vw,2.3rem);margin-bottom:16px}
+.p-benefit p{color:var(--brown-700);max-width:420px}
+.p-benefit .im{overflow:hidden;min-height:340px}
+.p-benefit .im img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.p-benefit:hover .im img{transform:scale(1.05)}
+.p-benefit.rev{grid-template-columns:1.1fr 1fr}
+.p-benefit.rev .im{order:-1}
+
+/* ---------- Conversor: fondo blanco continuo, bloque burdeos con el celular centrado + calculadora ---------- */
+.p-ex{background:var(--white);padding:0}
+.p-ex .wrap{max-width:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;min-height:680px}
+.p-ex .l{background:var(--burgundy);display:flex;justify-content:center;align-items:center;padding:72px 24px}
+.p-ex .l img{max-height:500px;max-width:100%;width:auto;filter:drop-shadow(0 24px 40px rgba(0,0,0,.4));transition:transform .6s var(--ease)}
+.p-ex:hover .l img{transform:translateY(-8px)}
+.p-ex .r{padding:72px 56px 72px 80px;display:flex;flex-direction:column;justify-content:center}
+.p-ex h2{font-size:clamp(1.9rem,3vw,2.6rem);margin-bottom:34px}
+.p-calc .row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.p-calc .cur{display:flex;align-items:center;gap:12px;font-size:1.6rem;font-weight:300;letter-spacing:-.02em;flex:none}
+.p-calc .cur img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+.p-calc .val{flex:1;min-width:0;text-align:right;font-size:1.6rem;font-weight:300;color:var(--black);letter-spacing:-.02em}
+.p-calc input.val{border:0;outline:0;background:transparent;font-family:inherit;width:100%}
+.p-calc .out.val{overflow:hidden;text-overflow:ellipsis}
+.p-calc .mid{display:flex;align-items:center;gap:12px;margin:2px 0}
+.p-calc .mid::after{content:"";flex:1;height:1px;background:var(--brown-200)}
+.p-calc .swapbtn{width:34px;height:34px;border-radius:50%;border:0;background:var(--green);color:#fff;cursor:pointer;font-size:1rem;transition:transform .3s var(--ease),background-color .15s var(--ease)}
+.p-calc .swapbtn:hover{transform:rotate(180deg);background:#006f40}
+.p-calc .swapbtn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.p-calc .rate{font-size:.8rem;color:var(--taupe);margin-top:6px}
+.p-ex .btn{margin-top:26px;align-self:flex-start}
+.p-ex .legal{margin-top:22px;font-size:.75rem;color:var(--taupe);max-width:460px}
+.p-ex .legal a{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- Inversionistas ---------- */
+.p-inv{background:var(--black);color:var(--off-white);padding:96px 0}
+.p-inv .tcard{margin-top:36px;max-width:560px}
+
+/* ---------- Testimonios sobre azul petróleo ---------- */
+.p-teal{background:#053947;color:var(--off-white);padding:96px 0;overflow:hidden}
+.p-teal .wrap{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:center}
+.p-teal h2{font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:28px}
+.p-teal .chips{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.p-teal .chip{background:rgba(255,255,255,.04)}
+.p-teal .quotes{margin-top:0}
+.p-teal .quote,.p-teal .quote.hl{flex-basis:calc((100% - 24px)/2);min-height:300px;background:linear-gradient(270deg,rgba(13,115,140,.65) 0%,rgba(5,57,71,.15) 100%),#0a4b5e;color:var(--off-white);padding:28px}
+.p-teal .quote:hover{box-shadow:0 18px 40px rgba(0,0,0,.3)}
+.p-teal .quote p{font-size:.95rem;line-height:1.55;font-weight:300}
+.p-teal .quote cite,.p-teal .quote cite b{color:var(--off-white)}
+.p-teal .quote cite{margin-top:24px;font-size:.78rem;opacity:.9}
+.p-teal .quote cite b{font-size:.95rem}
+.p-teal .qctrl{margin-top:20px}
+.p-teal .dots button{background:rgba(255,255,255,.3)}
+.p-teal .dots button.on{background:#fff}
+.p-teal .arrows button{border-color:var(--off-white);color:var(--off-white)}
+.p-teal .arrows button:hover{background:var(--off-white);color:var(--black)}
+
+/* ---------- FAQ en dos columnas ---------- */
+.p-faq{background:var(--white);padding:96px 0}
+.p-faq .wrap{display:grid;grid-template-columns:5fr 7fr;gap:72px;align-items:start}
+.p-faq .faq{margin:0;max-width:none;border-top:1px solid var(--brown-200)}
+.p-faq .ttl p{margin-top:14px;color:var(--brown-700)}
+
+/* ---------- Descarga con QR ---------- */
+.p-qr{display:grid;grid-template-columns:1fr 1fr;min-height:420px}
+.p-qr .l{display:flex;align-items:center;justify-content:center;padding:56px 24px;background:#6b6159 url("https://www.arqfinance.com/_astro/qr-bg.CNiHP9vU.webp") center/cover no-repeat}
+.p-qr .qrbox{background:var(--white);padding:14px;width:200px;transition:transform .3s var(--ease)}
+.p-qr .qrbox:hover{transform:scale(1.05) rotate(-2deg)}
+.p-qr .qrbox img{width:100%;height:auto}
+.p-qr .r{background:var(--off-white);color:var(--black);padding:56px;display:flex;flex-direction:column;justify-content:center}
+.p-qr h2{font-size:clamp(2rem,4vw,3.2rem)}
+.p-qr p{margin:14px 0 28px;color:var(--brown-700);max-width:420px}
+.badges{display:flex;gap:12px;flex-wrap:wrap}
+.badges img{height:48px;width:auto;transition:transform .2s var(--ease)}
+.badges a:hover img{transform:translateY(-3px)}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1000px){
+  .p-green .wrap,.p-pillars .wrap,.p-press .wrap,.p-teal .wrap,.p-faq .wrap{grid-template-columns:1fr;gap:36px}
+  .p-green .wrap{min-height:0;padding-top:56px}
+  .p-green .img{padding:0}
+  .p-green .img img{height:520px;max-width:100%;object-fit:contain;margin-bottom:-90px}
+  .p-pillars{padding-top:150px}
+  .p-pillars .ttl{position:static}
+  .p-benefit,.p-qr,.p-ex .wrap{grid-template-columns:1fr}
+  .p-ex .wrap{min-height:0;gap:0}
+  .p-ex .l{padding:48px 24px}
+  .p-ex .l img{max-height:480px}
+  .p-benefit .im{min-height:240px;order:-1}
+  .p-ex .r{padding:48px 24px 64px}
+  .p-qr .r{padding:48px 24px}
+}
+@media(max-width:560px){
+  .p-hero .wrap{padding-bottom:40px}
+  .p-benefits,.p-inv,.p-teal,.p-faq{padding:64px 0}
+  .p-pillars{padding:140px 0 64px}
+  .p-benefit .tx{padding:28px 22px}
+  .p-teal .quote,.p-teal .quote.hl{flex-basis:86%}
+}
