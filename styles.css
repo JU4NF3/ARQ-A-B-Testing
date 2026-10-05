@@ -179,6 +179,7 @@ footer .links a{transition:opacity .2s var(--ease)}
 footer .links a:hover{opacity:.6}
 footer .brand{display:block;width:100%;max-width:1200px;height:auto;margin:72px auto 0;filter:brightness(0) invert(1);opacity:.95}
 footer p{margin-bottom:12px;max-width:940px}
+footer p.academic{margin:6px 0 0;font-size:.66rem;opacity:.4;letter-spacing:.02em}
 
 /* ===== Animaciones básicas: aparición al hacer scroll ===== */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}

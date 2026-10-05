@@ -70,5 +70,10 @@ real (registro completado) debe medirse en el flujo de alta de ARQ.
 
 ## Aviso
 
-Marca, logos, imágenes, videos y textos de ARQ y de DolarApp pertenecen a sus titulares. Este repositorio es un
-prototipo de experimentación A/B y no está afiliado oficialmente a ARQ ni a Nu.
+**Esto es una actividad académica de experimentación A/B, no un proyecto real ni un sitio oficial.** Es un prototipo
+sin relación con ARQ, DolarApp ni Nu, y **no cuenta con autorización de ARQ** para usar su marca.
+
+Marca, logos, imágenes, videos y textos de ARQ y de DolarApp pertenecen a sus titulares; aquí se usan únicamente con
+fines educativos y sin ánimo comercial. No se recolectan datos de personas reales más allá de la analítica básica
+de la página de prueba. La página incluye `noindex` para que los buscadores no la indexen, y un aviso discreto en el
+pie de página. Si el titular de los derechos lo solicita, el contenido se retira.
