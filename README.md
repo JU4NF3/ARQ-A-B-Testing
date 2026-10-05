@@ -40,33 +40,46 @@ o sírvela desde cualquier hosting estático (GitHub Pages, Netlify, Vercel…):
 - Animaciones básicas (aparición al hacer scroll, hover de botones y tarjetas); respeta `prefers-reduced-motion`.
 - Navbar: el logo sube al inicio; Funcionalidades, Clientes/Opiniones, Ayuda y el botón del navbar no navegan.
 
-## Medición con Google Tag Manager
+## Medición: Google Tag Manager y Google Analytics
 
-La página escribe sus eventos en `window.dataLayer`, que es lo que lee GTM.
-
-**Configuración** (en `index.html`, bloque de `<head>`):
+### En la página
+Carga el contenedor de GTM `GTM-MVTGJ2GV` (cargador en el `<head>` y respaldo `noscript`) y escribe sus eventos en
+`window.dataLayer`. La configuración está en `index.html`:
 
 ```js
-window.ARQ_AB = { gtmId: '', variant: 'B' };
+window.ARQ_AB = { gtmId: 'GTM-MVTGJ2GV', variant: 'B' };
 ```
 
-- `gtmId`: pega el ID de tu contenedor (`GTM-XXXXXXX`). **Mientras esté vacío no se carga GTM**, pero los eventos
-  igual se registran en `window.dataLayer` (puedes verlos escribiendo `dataLayer` en la consola del navegador).
-- `variant`: identifica esta versión en los eventos. La versión A debe enviar `'A'` para poder comparar.
-- Opcional: descomenta el bloque `<noscript>` al inicio del `<body>` y pon tu ID (respaldo sin JavaScript).
-
-**Eventos que envía** (todos incluyen `variant` y `view`: `empresas` o `personal`):
+Eventos que envía (todos con `variant` y `view`: `empresas` o `personal`):
 
 | Evento | Cuándo | Parámetros extra |
 |---|---|---|
-| `cta_click` | Clic en cualquier botón del cuerpo con `data-cta` (hero, productos, conversor, modal…) | `cta` (nombre), `cta_text` |
+| `cta_click` | Clic en un botón del cuerpo con `data-cta` (hero, productos, conversor, modal…) | `cta`, `cta_text` |
 | `view_change` | Al cargar y al cambiar entre Empresas y Personal | `view`, `from_user` |
 | `scroll_depth` | Una vez por vista al llegar al 50 % y al 75 % | `percent` |
 | `calculator_use` | La primera vez que se usa el conversor | `action` (`input` o `swap`) |
 
-**En GTM:** crea un disparador de tipo *Evento personalizado* para cada nombre de evento, variables de capa de datos
-para `variant`, `view`, `cta` y `percent`, y envíalos a GA4. Un clic en un botón no es una conversión: la conversión
-real (registro completado) debe medirse en el flujo de alta de ARQ.
+### En Google Tag Manager (contenedor `GTM-MVTGJ2GV`)
+
+| Elemento | Nombre | Qué hace |
+|---|---|---|
+| Variable integrada | `Event` | Nombre del evento que llegó al `dataLayer` |
+| Variable de capa de datos | `dlv - cta` | Lee `cta` |
+| Variable de capa de datos | `dlv - view` | Lee `view` |
+| Variable de capa de datos | `dlv - variant` | Lee `variant` |
+| Activador | `Eventos ARQ B` | Evento personalizado con expresión regular: `cta_click\|view_change\|scroll_depth\|calculator_use` |
+| Etiqueta | `GA4 - Base` | Etiqueta de Google con el ID `G-6H76HZLWR0`; se dispara en *Initialization - All Pages* |
+| Etiqueta | `GA4 - Eventos ARQ B` | Evento de GA4 con el ID `G-6H76HZLWR0`; nombre del evento `{{Event}}`; parámetros `cta`, `view` y `variant`; se dispara con `Eventos ARQ B` |
+
+### En Google Analytics 4 (ID de medición `G-6H76HZLWR0`)
+- Flujo de datos web que recibe los datos de la página a través de GTM (la página no incluye el código de `gtag` directamente, para no duplicar eventos).
+- Recibe la vista de página automática de la etiqueta base y los cuatro eventos anteriores con los parámetros `cta`, `view` y `variant`.
+
+### Alcance actual
+- Los parámetros `percent`, `action`, `cta_text` y `from_user` llegan al `dataLayer` pero **no se reenvían a GA4** (no hay variables para ellos en GTM).
+- En GA4 no hay dimensiones personalizadas ni eventos clave configurados, así que los parámetros no aparecen en los informes estándar.
+- Un clic en un botón no es una conversión: el registro completado debe medirse en el flujo de alta de ARQ, que esta página de prueba no incluye.
+- La versión A debería enviar `variant: 'A'` con los mismos eventos para poder compararla con la B.
 
 ## Aviso
 
