@@ -40,46 +40,74 @@ o sírvela desde cualquier hosting estático (GitHub Pages, Netlify, Vercel…):
 - Animaciones básicas (aparición al hacer scroll, hover de botones y tarjetas); respeta `prefers-reduced-motion`.
 - Navbar: el logo sube al inicio; Funcionalidades, Clientes/Opiniones, Ayuda y el botón del navbar no navegan.
 
-## Medición: Google Tag Manager y Google Analytics
+## Medición: cómo sabemos qué hace la gente en la página
 
-### En la página
-Carga el contenedor de GTM `GTM-MVTGJ2GV` (cargador en el `<head>` y respaldo `noscript`) y escribe sus eventos en
-`window.dataLayer`. La configuración está en `index.html`:
+**En pocas palabras.** Para comparar la versión A con la B hay que saber qué hacen los visitantes: si pulsan un botón,
+si cambian de Empresas a Personal, si bajan hasta el final. Para eso, la página "avisa" cada vez que pasa algo de eso,
+y dos herramientas gratuitas de Google reciben los avisos:
 
-```js
-window.ARQ_AB = { gtmId: 'GTM-MVTGJ2GV', variant: 'B' };
+- **Google Tag Manager (GTM):** funciona como una recepción. Recibe los avisos de la página y decide a dónde enviarlos.
+  Se configura desde su propio sitio web, sin tocar el código de la página.
+- **Google Analytics 4 (GA4):** es donde se guardan los datos y se consultan (cuántos clics hubo, en qué botón, en qué
+  versión).
+
+```
+La persona hace algo en la página  →  la página envía un aviso  →  GTM lo recibe y lo reenvía  →  GA4 lo guarda y lo muestra
 ```
 
-Eventos que envía (todos con `variant` y `view`: `empresas` o `personal`):
+**Vocabulario rápido**
 
-| Evento | Cuándo | Parámetros extra |
+| Palabra | Qué significa |
+|---|---|
+| Evento | Un "aviso" que envía la página cuando pasa algo (por ejemplo, un clic) |
+| Parámetro | Un dato extra que acompaña al aviso (por ejemplo, cuál botón fue) |
+| CTA | Botón de llamada a la acción, como "Registrarse" o "Cambia ahora" |
+| Variante | Cuál versión de la página es: aquí siempre **B** (la versión A es la web actual) |
+
+### 1. Qué avisos envía la página
+
+| Qué hace la persona | Nombre del aviso (evento) | Datos que lo acompañan |
 |---|---|---|
-| `cta_click` | Clic en un botón del cuerpo con `data-cta` (hero, productos, conversor, modal…) | `cta`, `cta_text` |
-| `view_change` | Al cargar y al cambiar entre Empresas y Personal | `view`, `from_user` |
-| `scroll_depth` | Una vez por vista al llegar al 50 % y al 75 % | `percent` |
-| `calculator_use` | La primera vez que se usa el conversor | `action` (`input` o `swap`) |
+| Hace clic en un botón del cuerpo de la página | `cta_click` | `cta`: cuál botón (por ejemplo `hero`), `cta_text`: lo que dice el botón |
+| Entra a la página o cambia entre Empresas y Personal | `view_change` | `view`: a cuál vista, `from_user`: si fue ella quien cambió o fue la carga inicial |
+| Baja por la página hasta la mitad o hasta el 75 % | `scroll_depth` | `percent`: 50 o 75 |
+| Usa el conversor de monedas por primera vez (vista Personal) | `calculator_use` | `action`: si escribió un monto (`input`) o invirtió las monedas (`swap`) |
 
-### En Google Tag Manager (contenedor `GTM-MVTGJ2GV`)
+Además, **todos** los avisos incluyen `variant` (la versión: `B`) y `view` (en qué vista estaba: `empresas` o `personal`).
 
-| Elemento | Nombre | Qué hace |
+*Para quien desarrolla:* los avisos se guardan en `window.dataLayer`, y el ID de GTM y la variante se definen en
+`index.html`: `window.ARQ_AB = { gtmId: 'GTM-MVTGJ2GV', variant: 'B' };`
+
+### 2. Qué está configurado en Google Tag Manager
+El "contenedor" es la cuenta de GTM de este proyecto: **`GTM-MVTGJ2GV`**. Tiene estas piezas:
+
+| Pieza | Nombre | Para qué sirve, en simple |
 |---|---|---|
-| Variable integrada | `Event` | Nombre del evento que llegó al `dataLayer` |
-| Variable de capa de datos | `dlv - cta` | Lee `cta` |
-| Variable de capa de datos | `dlv - view` | Lee `view` |
-| Variable de capa de datos | `dlv - variant` | Lee `variant` |
-| Activador | `Eventos ARQ B` | Evento personalizado con expresión regular: `cta_click\|view_change\|scroll_depth\|calculator_use` |
-| Etiqueta | `GA4 - Base` | Etiqueta de Google con el ID `G-6H76HZLWR0`; se dispara en *Initialization - All Pages* |
-| Etiqueta | `GA4 - Eventos ARQ B` | Evento de GA4 con el ID `G-6H76HZLWR0`; nombre del evento `{{Event}}`; parámetros `cta`, `view` y `variant`; se dispara con `Eventos ARQ B` |
+| Variable integrada | `Event` | Guarda el nombre del aviso que acaba de llegar (por ejemplo `cta_click`) |
+| Variable | `dlv - cta` | Lee del aviso cuál botón se pulsó |
+| Variable | `dlv - view` | Lee del aviso en qué vista estaba la persona |
+| Variable | `dlv - variant` | Lee del aviso de qué versión viene (B) |
+| Activador | `Eventos ARQ B` | La regla: "cuando llegue uno de estos cuatro avisos (`cta_click`, `view_change`, `scroll_depth`, `calculator_use`), actúa" |
+| Etiqueta | `GA4 - Base` | Conecta la página con Google Analytics (ID `G-6H76HZLWR0`) y registra la visita. Se activa en cuanto carga la página |
+| Etiqueta | `GA4 - Eventos ARQ B` | Cuando se cumple la regla, envía el aviso a Google Analytics junto con tres datos: `cta`, `view` y `variant` |
 
-### En Google Analytics 4 (ID de medición `G-6H76HZLWR0`)
-- Flujo de datos web que recibe los datos de la página a través de GTM (la página no incluye el código de `gtag` directamente, para no duplicar eventos).
-- Recibe la vista de página automática de la etiqueta base y los cuatro eventos anteriores con los parámetros `cta`, `view` y `variant`.
+### 3. Qué recibe Google Analytics 4
+Un "flujo de datos web", identificado con el **ID `G-6H76HZLWR0`**, que recibe a través de GTM:
 
-### Alcance actual
-- Los parámetros `percent`, `action`, `cta_text` y `from_user` llegan al `dataLayer` pero **no se reenvían a GA4** (no hay variables para ellos en GTM).
-- En GA4 no hay dimensiones personalizadas ni eventos clave configurados, así que los parámetros no aparecen en los informes estándar.
-- Un clic en un botón no es una conversión: el registro completado debe medirse en el flujo de alta de ARQ, que esta página de prueba no incluye.
-- La versión A debería enviar `variant: 'A'` con los mismos eventos para poder compararla con la B.
+- Cada visita a la página (la registra la etiqueta `GA4 - Base`).
+- Los cuatro avisos anteriores, cada uno con su nombre y con tres datos: `cta`, `view` y `variant`.
+
+La página no lleva pegado el código directo de Google Analytics a propósito: si lo tuviera además de GTM, cada
+evento se contaría dos veces.
+
+### 4. Lo que todavía no está incluido
+- GTM aún no pasa a GA4 los datos `percent`, `action`, `cta_text` y `from_user`. Consecuencia: en GA4 se verá que alguien
+  bajó por la página o usó el conversor, pero **no se podrá distinguir 50 % de 75 %** ni qué hizo exactamente con el conversor.
+- GA4 no está configurado para mostrar `cta`, `view` y `variant` en sus informes estándar (para eso hay que registrarlos
+  como "dimensiones personalizadas"), ni tiene marcados eventos como conversión.
+- Un clic en un botón mide interés, no un registro. El registro completado debe medirse en el proceso de alta de ARQ,
+  que esta página de prueba no incluye.
+- Para poder comparar, la versión A tendría que enviar los mismos avisos con `variant: 'A'`.
 
 ## Aviso
 
